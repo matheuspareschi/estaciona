@@ -5,7 +5,7 @@
 //
 // Ao publicar uma versão que mude a lista de arquivos abaixo, aumente VERSAO.
 
-const VERSAO = "v1";
+const VERSAO = "v2";
 const CACHE = `estaciona-${VERSAO}`;
 
 const ARQUIVOS = [
@@ -22,6 +22,7 @@ const ARQUIVOS = [
   "js/views/home.js",
   "js/views/ritual.js",
   "js/views/history.js",
+  "js/views/como-usar.js",
   "fonts/fraunces-latin-wght-normal.woff2",
   "fonts/fraunces-latin-wght-italic.woff2",
   "fonts/inter-latin-wght-normal.woff2",
@@ -53,7 +54,9 @@ self.addEventListener("fetch", (evento) => {
   if (new URL(pedido.url).origin !== self.location.origin) return;
 
   evento.respondWith(
-    fetch(pedido)
+    // no-cache: revalida com o servidor (304 se não mudou). Sem isso o cache HTTP do navegador
+    // poderia entregar um arquivo velho por alguns minutos depois de um deploy.
+    fetch(pedido, { cache: "no-cache" })
       .then((resposta) => {
         if (resposta.ok) {
           const copia = resposta.clone();

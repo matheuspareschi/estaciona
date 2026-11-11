@@ -65,3 +65,8 @@ function aoVoltar() {
 }
 document.addEventListener("visibilitychange", aoVoltar);
 window.addEventListener("focus", aoVoltar);
+
+// PWA: permite abrir offline e instalar como janela própria. Só em http(s); falha em silêncio.
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js").catch(() => {});
+}

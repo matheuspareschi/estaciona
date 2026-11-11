@@ -59,3 +59,13 @@ Registro das decisões de implementação do v0.1 e do porquê de cada uma.
 
 - `js/dev/testes.js`: 23 testes de regras, storage, pergunta e exportação.
 - Verificação no Edge (headless, via protocolo de depuração): 45 checagens que cobrem validação, Roteiro, fila, retomar, reabertura no mesmo dia, virada de dia, Emergência, Histórico, trajetória, os dois downloads e ausência de requisições externas. O script não faz parte do repositório.
+
+## PWA (`manifest.webmanifest`, `sw.js`, `icons/`)
+
+- **Ícone:** "E" em Fraunces itálico, creme (`#faf6ee`) sobre o verde-sálvia (`#4f6b52`), a mesma marca do rodapé. Gerado a partir da própria fonte do app, em 192 e 512 px. O quadrado vai sem cantos arredondados e o glifo fica na zona segura central, então o mesmo arquivo serve para `any` e `maskable`. Também é o favicon, o que elimina o 404.
+- **Manifest:** `display: standalone`, `start_url` e `scope` relativos (`./`), para funcionar tanto em `localhost` quanto em um GitHub Pages dentro de subpasta. `background_color` e `theme_color` são `#faf6ee`, o fundo do app.
+- **Service worker: rede primeiro, cache como reserva.** Com conexão, uma versão nova aparece na hora e os módulos JS nunca se misturam entre versões. Sem conexão, o app abre do cache. Escolhi isso em vez de "cache primeiro" porque o app é pessoal e atualizar manualmente um número de versão a cada ajuste seria fácil de esquecer.
+- **Pré-cache** de todos os arquivos do app na instalação. Se a lista de arquivos mudar, é preciso aumentar `VERSAO` em `sw.js`; caches de versões antigas são apagados na ativação.
+- **O service worker só atende GET da mesma origem** e nunca toca no localStorage. A exigência de "nenhuma requisição de rede" continua valendo: ele não faz nenhuma chamada externa.
+- **Registro** em `main.js`, sem mostrar erro: se o navegador não permitir (por exemplo `file://`), o app funciona normalmente, só sem instalar nem abrir offline.
+- **Verificado no Edge:** service worker ativo, 18 arquivos em cache, manifest sem erros, sem erros de instalabilidade, e o app abrindo offline com fila, Histórico e fontes intactos.

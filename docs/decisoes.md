@@ -4,7 +4,7 @@ Registro das decisões de implementação do v0.1 e do porquê de cada uma.
 
 ## Layout de referência
 
-- **O guia visual é o `Estaciona.html`** (protótipo com Início, Roteiro e Emergência). Um `index.html` anterior, em outro estilo (teal, Plus Jakarta Sans), foi descartado e movido com seus CSS, fontes e `design-system/` para `_arquivo/`, sem apagar nada.
+- **O guia visual foi o `Estaciona.html`** (protótipo com Início, Roteiro e Emergência), já convertido para o app e removido do repositório. Um `index.html` anterior, em outro estilo (teal, Plus Jakarta Sans), foi descartado, junto com seus CSS, fontes e `design-system/`. Nenhum dos dois estava no Git.
 - **O Histórico não existe no protótipo.** Será criado reaproveitando o vocabulário visual dele (cartão creme, selo em pílula, botão secundário de borda verde).
 - **Fontes locais** (`fonts/`): Fraunces (normal e itálico) e Inter, extraídas do próprio protótipo, que as embutia. Licenças em `fonts/LICENSES.txt`. Nenhuma requisição externa.
 

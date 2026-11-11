@@ -69,3 +69,23 @@ Registro das decisões de implementação do v0.1 e do porquê de cada uma.
 - **O service worker só atende GET da mesma origem** e nunca toca no localStorage. A exigência de "nenhuma requisição de rede" continua valendo: ele não faz nenhuma chamada externa.
 - **Registro** em `main.js`, sem mostrar erro: se o navegador não permitir (por exemplo `file://`), o app funciona normalmente, só sem instalar nem abrir offline.
 - **Verificado no Edge:** service worker ativo, 18 arquivos em cache, manifest sem erros, sem erros de instalabilidade, e o app abrindo offline com fila, Histórico e fontes intactos.
+
+## Como usar (`index.html`, `js/views/como-usar.js`)
+
+- **Tela secundária** com o mesmo visual da Emergência (título em Fraunces, cartões creme, ícone e selo). Terceiro link do rodapé do Início ("Como usar"); nas demais telas o rodapé continua só com "Início".
+- **Conteúdo:** três passos numerados e ligados por setas (Fixe na barra, Conte da esquerda, Aperte as teclas), uma dica (arrastar o ícone para a posição preferida) e, embaixo, o motivo de abrir assim: chegar ao app só com o teclado, sem procurar janelas ou abas, reduz o atrito e a chance de distração (princípio 1 do README).
+- **O Passo 1 é fixar, não instalar.** Sem o ícone fixo na barra não existe um número para o `Win + número`, e o fixar continua valendo depois de instalado. Por isso ele não some.
+- **Bloco "Instale o app"** separado, acima dos passos, só no navegador. Quando o app roda como aplicativo (`display-mode: standalone`) o bloco fica escondido, e reaparece ao vivo se o modo mudar. A margem dos passos é preservada nos dois estados.
+- **Setas** são decorativas (`aria-hidden`); a ordem vem da lista ordenada `<ol>` e dos selos "Passo N". Em tela estreita os cartões empilham e as setas apontam para baixo.
+- **Texto específico do Windows**, porque é o uso do projeto. O app não detecta o sistema operacional.
+
+## Service worker: revalidar em vez de confiar no cache HTTP
+
+- O `fetch` dentro do service worker passa pelo cache HTTP do navegador. Como o GitHub Pages envia `max-age` de alguns minutos, a estratégia "rede primeiro" podia entregar um arquivo velho por esse tempo depois de um deploy. O `fetch` agora usa `cache: "no-cache"`, que revalida com o servidor (resposta 304 quando nada mudou) e mantém o app abrindo offline pelo cache do service worker.
+- `VERSAO` passou para `v2` porque a lista de arquivos ganhou `js/views/como-usar.js`; o cache `v1` é apagado na ativação.
+- Não testei a revalidação contra o GitHub Pages: o servidor local de teste não reproduz o `max-age`.
+
+## Verificação (atualizada)
+
+- 23 testes de console; 45 checagens do app, 14 do PWA e 18 da tela Como usar no Edge headless. O modo "instalado" foi simulado trocando o `matchMedia` antes do carregamento, porque o Edge headless não emula `display-mode`.
+

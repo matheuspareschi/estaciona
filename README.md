@@ -38,7 +38,7 @@ A **fila** é só uma orientação do que ficou aberto hoje. Você pode retomar 
 1. **Início (deixar + fila):** pergunta no topo, formulário de captura e a fila do dia logo abaixo.
 2. **Roteiro:** tela cheia exibida ao salvar. Ao fechar, volta para o Início.
 
-**Telas secundárias** (menu discreto): Técnicas de emergência e Histórico.
+**Telas secundárias** (menu discreto): Técnicas de emergência, Histórico e Como usar.
 
 ## Funcionalidades
 
@@ -123,7 +123,7 @@ Os dados ficam sem criptografia no perfil do navegador. Use anotações curtas e
 estaciona/
   index.html
   manifest.webmanifest
-  sw.js               # abre o app offline (rede primeiro, cache como reserva)
+  sw.js               # abre o app offline (rede primeiro, revalidando; cache como reserva)
   css/
     tokens.css        # fontes locais e variáveis (cores, raios, sombras)
     base.css          # layout das quatro telas
@@ -139,13 +139,14 @@ estaciona/
       home.js         # indicador + pergunta + formulário + fila
       ritual.js       # roteiro em tela cheia
       history.js      # histórico por data e botões de exportação
+      como-usar.js    # esconde o bloco de instalação quando o app já está instalado
     dev/
       testes.js       # testes de console (não carregados pelo app)
   docs/
     decisoes.md
 ```
 
-As técnicas de emergência são só texto e ficam no próprio `index.html`.
+As técnicas de emergência e o "Como usar" são só texto e ficam no próprio `index.html`.
 
 ## Roadmap
 

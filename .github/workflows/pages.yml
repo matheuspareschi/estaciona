@@ -1,0 +1,57 @@
+# Testa e publica o Estaciona no GitHub Pages.
+# Em pull requests só roda os testes. Em push na main (ou manualmente) também publica.
+#
+# Antes do primeiro uso: no GitHub, Settings > Pages > Build and deployment > Source: "GitHub Actions".
+
+name: Testes e publicação
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Uma publicação por vez; uma nova substitui a que ainda estiver na fila.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Testes de regras, storage e exportação
+        run: node -e "import('./js/dev/testes.js').then(m => m.rodar())"
+
+  publicar:
+    needs: testes
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - name: Montar só os arquivos do app
+        run: |
+          mkdir -p _site/js
+          cp index.html manifest.webmanifest sw.js _site/
+          cp -r css fonts icons _site/
+          cp -r js/main.js js/storage.js js/state.js js/prompts.js js/export.js js/views _site/js/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v4

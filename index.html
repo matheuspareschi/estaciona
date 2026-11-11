@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Estaciona</title>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <main id="conteudo">
+
+    <!-- ============ 1) INÍCIO ============ -->
+    <section class="tela" data-view="inicio" data-titulo="Estaciona" aria-labelledby="pergunta">
+      <div class="tela-corpo inicio-corpo">
+
+        <div class="inicio-esquerda">
+          <p id="indicador" class="indicador" role="status" data-ativo="false">
+            <span class="indicador-ponto" aria-hidden="true"></span>
+            <span class="indicador-texto">Nenhuma tarefa ativa</span>
+          </p>
+
+          <h1 id="pergunta" tabindex="-1"></h1>
+
+          <form id="form-deixar" class="form" autocomplete="off" novalidate>
+            <fieldset class="segmentado">
+              <legend class="sr-only">Status da tarefa</legend>
+              <div class="segmentado-grupo">
+                <input type="radio" id="status-aberta" name="status" value="aberta" checked>
+                <label for="status-aberta">Aberta</label>
+                <input type="radio" id="status-concluida" name="status" value="concluida">
+                <label for="status-concluida">Concluída</label>
+              </div>
+            </fieldset>
+
+            <div class="campo">
+              <label for="campo-nome">Nome da tarefa<span class="sr-only"> (obrigatório)</span></label>
+              <input id="campo-nome" name="nome" type="text" required autofocus maxlength="120"
+                     placeholder="Como você chama esta tarefa?" aria-describedby="erro-form">
+            </div>
+
+            <div class="campo">
+              <label id="rotulo-linha" for="campo-linha">Próximo passo</label>
+              <input id="campo-linha" name="linha" type="text" maxlength="200"
+                     placeholder="Uma linha: por onde retomar" aria-describedby="erro-form">
+            </div>
+
+            <p id="erro-form" class="erro-form" role="alert" hidden></p>
+
+            <button id="btn-salvar" class="btn-salvar" type="submit">
+              <span>Guardar</span>
+              <svg class="icone" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </form>
+        </div>
+
+        <section class="cartao fila-bloco" aria-labelledby="fila-titulo">
+          <div class="fila-cabeca">
+            <svg class="icone" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.6" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>
+            <h2 id="fila-titulo">Fila de hoje</h2>
+          </div>
+          <ul id="fila" class="fila" hidden></ul>
+          <p id="fila-vazia" class="fila-vazia">Nada na fila hoje.</p>
+        </section>
+
+        <template id="tpl-fila-item">
+          <li class="fila-item" data-tarefa="">
+            <button type="button" class="fila-toggle" aria-expanded="false">
+              <span class="fila-nome"></span>
+              <svg class="icone" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="fila-painel" hidden>
+              <div class="painel-rotulo">Próximo passo</div>
+              <p class="proximo-passo"></p>
+              <button type="button" class="btn-secundario btn-retomar">Retomar</button>
+            </div>
+          </li>
+        </template>
+
+      </div>
+
+      <footer class="rodape">
+        <span class="marca">Estaciona</span>
+        <nav aria-label="Mais opções">
+          <a href="#emergencia" data-ir="emergencia">Emergência</a>
+          <a href="#historico" data-ir="historico">Histórico</a>
+        </nav>
+      </footer>
+    </section>
+
+    <!-- ============ 2) ROTEIRO ============ -->
+    <section class="tela-roteiro" id="roteiro" data-view="roteiro" data-titulo="Estaciona" aria-labelledby="roteiro-titulo" hidden>
+      <div class="roteiro-conteudo">
+        <h1 id="roteiro-titulo" class="sr-only">Roteiro de transição</h1>
+        <ol class="roteiro-lista">
+          <li>
+            <span class="roteiro-num" aria-hidden="true">1</span>
+            <span class="roteiro-palavra">Fechar</span>
+            <span class="roteiro-frase">Feche as abas e janelas da tarefa que ficou.</span>
+            <svg class="icone roteiro-icone" width="40" height="40" viewBox="0 0 24 24" stroke-width="1.4" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9.5 9.5l5 5M14.5 9.5l-5 5"/></svg>
+          </li>
+          <li>
+            <span class="roteiro-num" aria-hidden="true">2</span>
+            <span class="roteiro-palavra">Limpar</span>
+            <span class="roteiro-frase">Levante, respire fundo três vezes, tome um gole d'água.</span>
+            <svg class="icone roteiro-icone" width="40" height="40" viewBox="0 0 24 24" stroke-width="1.4" aria-hidden="true"><path d="M12 3C12 3 5.5 10 5.5 14.5a6.5 6.5 0 0 0 13 0C18.5 10 12 3 12 3z"/></svg>
+          </li>
+          <li>
+            <span class="roteiro-num" aria-hidden="true">3</span>
+            <span class="roteiro-palavra">Preparar</span>
+            <span class="roteiro-frase">Abra só o que a próxima tarefa precisa.</span>
+            <svg class="icone roteiro-icone" width="40" height="40" viewBox="0 0 24 24" stroke-width="1.4" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          </li>
+          <li>
+            <span class="roteiro-num" aria-hidden="true">4</span>
+            <span class="roteiro-palavra">Começar</span>
+            <span class="roteiro-frase">Dê um pequeno primeiro passo.</span>
+            <svg class="icone roteiro-icone" width="40" height="40" viewBox="0 0 24 24" stroke-width="1.4" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/></svg>
+          </li>
+        </ol>
+        <div class="roteiro-acoes">
+          <button id="btn-fechar-roteiro" type="button" class="btn-fechar" aria-label="Fechar">
+            <svg class="icone" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3) EMERGÊNCIA ============ -->
+    <section class="tela" data-view="emergencia" data-titulo="Emergência · Estaciona" aria-labelledby="emergencia-titulo" hidden>
+      <div class="tela-corpo secundaria-corpo">
+        <h1 id="emergencia-titulo" tabindex="-1">Emergência</h1>
+        <p class="lead">Para momentos difíceis.</p>
+
+        <div class="tecnicas">
+          <article class="cartao tecnica">
+            <div class="tecnica-topo">
+              <svg class="icone" width="46" height="46" viewBox="0 0 24 24" stroke-width="1.4" aria-hidden="true"><path d="M5 4h10l4 4v12H5z"/><path d="M15 4v4h4"/><path d="M8 13h8M8 17h5"/></svg>
+              <span class="selo-tempo">3 min</span>
+            </div>
+            <h2>Brain dump</h2>
+            <p>Escreva sem parar o que você pensa e sente sobre o que aconteceu. Sem organizar, sem resolver.</p>
+          </article>
+          <article class="cartao tecnica">
+            <div class="tecnica-topo">
+              <svg class="icone" width="46" height="46" viewBox="0 0 24 24" stroke-width="1.4" aria-hidden="true"><path d="M12 3C12 3 5.5 10 5.5 14.5a6.5 6.5 0 0 0 13 0C18.5 10 12 3 12 3z"/></svg>
+              <span class="selo-tempo">30 s</span>
+            </div>
+            <h2>Reset sensorial</h2>
+            <p>Água fria no rosto, ou saia um instante para sentir o ar de fora. O corpo muda de assunto.</p>
+          </article>
+          <article class="cartao tecnica">
+            <div class="tecnica-topo">
+              <svg class="icone" width="46" height="46" viewBox="0 0 24 24" stroke-width="1.4" aria-hidden="true"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h5.5a3.5 3.5 0 0 0 0-7h-3a3.5 3.5 0 0 1 0-7H16"/></svg>
+              <span class="selo-tempo">5 min</span>
+            </div>
+            <h2>Caminhada</h2>
+            <p>Caminhe num passo firme, sem celular. É o reset mais forte para o que ficou pesado.</p>
+          </article>
+        </div>
+      </div>
+
+      <footer class="rodape">
+        <span class="marca">Estaciona</span>
+        <nav aria-label="Mais opções">
+          <a href="#inicio" data-ir="inicio">Início</a>
+        </nav>
+      </footer>
+    </section>
+
+    <!-- ============ 4) HISTÓRICO ============ -->
+    <section class="tela" data-view="historico" data-titulo="Histórico · Estaciona" aria-labelledby="historico-titulo" hidden>
+      <div class="tela-corpo secundaria-corpo">
+        <h1 id="historico-titulo" tabindex="-1">Histórico</h1>
+        <p class="lead">Tudo o que você deixou, dia a dia.</p>
+
+        <div class="exportar">
+          <button id="btn-exportar-md" type="button" class="btn-secundario">
+            <svg class="icone" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.75" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></svg>
+            Exportar .md
+          </button>
+          <button id="btn-exportar-json" type="button" class="btn-secundario">
+            <svg class="icone" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.75" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></svg>
+            Exportar .json
+          </button>
+        </div>
+
+        <div id="lista-historico" class="historico-lista"></div>
+      </div>
+
+      <footer class="rodape">
+        <span class="marca">Estaciona</span>
+        <nav aria-label="Mais opções">
+          <a href="#inicio" data-ir="inicio">Início</a>
+        </nav>
+      </footer>
+    </section>
+
+  </main>
+</body>
+</html>

@@ -1,0 +1,264 @@
+/* Estaciona: layout. Valores do protótipo (Estaciona.html), em 1280×800 idêntico a ele.
+   Só variáveis de tokens.css. Abaixo de 56rem as colunas empilham. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: var(--font-texto);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+h1, h2, p, ul, ol, fieldset { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a { color: var(--cor-texto-suave); }
+a:hover { color: var(--cor-texto); }
+[hidden] { display: none !important; }
+
+:focus-visible { outline: 3px solid var(--cor-foco); outline-offset: 2px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; left: 16px; top: -4rem; z-index: 300;
+  padding: 10px 16px; border-radius: var(--raio-pilula);
+  background: var(--cor-superficie); color: var(--cor-acento-escuro);
+  border: 1.5px solid var(--cor-acento); text-decoration: none; font-weight: 600;
+}
+.skip-link:focus { top: 12px; }
+
+.icone { flex: none; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- estrutura das telas ---------- */
+.tela { display: flex; flex-direction: column; min-height: 100dvh; background: var(--cor-fundo); }
+.tela-corpo { flex: 1; }
+h1:focus { outline: none; } /* foco programático no título ao trocar de tela */
+
+.rodape {
+  box-sizing: border-box;
+  display: flex; justify-content: space-between; align-items: center; gap: 24px;
+  padding: 24px 56px;
+  background: var(--cor-rodape);
+  border-top: 1px solid var(--cor-borda-rodape);
+}
+.marca {
+  font-family: var(--font-titulo); font-style: italic; font-weight: 500;
+  font-size: 26px; color: var(--cor-acento-escuro);
+}
+.rodape nav { display: flex; gap: 36px; align-items: center; }
+.rodape a {
+  position: relative;
+  font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  text-decoration: none; font-weight: 600; color: var(--cor-acento-escuro);
+}
+.rodape a::after { content: ""; position: absolute; inset: -14px -8px; } /* alvo de toque >= 44px sem mudar o layout */
+
+.rotulo, .campo label, .painel-rotulo {
+  font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--cor-texto-suave); font-weight: 500;
+}
+
+.cartao {
+  box-sizing: border-box;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda-cartao);
+  border-radius: var(--raio-cartao);
+  box-shadow: var(--sombra-cartao);
+}
+
+.btn-secundario {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 10px 24px; border-radius: var(--raio-pilula);
+  border: 1.5px solid var(--cor-acento); background: transparent;
+  color: var(--cor-acento-escuro); font-size: 15px; font-weight: 600;
+}
+
+/* ---------- INÍCIO ---------- */
+.inicio-corpo {
+  display: flex; gap: 64px; align-items: flex-start;
+  padding: 56px 56px 40px;
+}
+.inicio-esquerda { flex: 0 0 600px; max-width: 100%; display: flex; flex-direction: column; }
+
+.indicador {
+  display: inline-flex; align-items: center; gap: 10px; align-self: flex-start;
+  padding: 10px 20px; border-radius: var(--raio-pilula);
+  background: var(--cor-acento); color: var(--cor-sobre-acento);
+  font-weight: 500; font-size: 14px;
+}
+.indicador-ponto { width: 9px; height: 9px; border-radius: 50%; background: var(--cor-ponto); flex: none; }
+/* sem tarefa ativa: mesma pílula, em tom neutro (variação não prevista no protótipo) */
+.indicador[data-ativo="false"] { background: var(--cor-segmento); color: var(--cor-texto-suave); }
+.indicador[data-ativo="false"] .indicador-ponto { background: var(--cor-borda-numero); }
+
+#pergunta {
+  margin: 28px 0 0;
+  font-family: var(--font-titulo); font-weight: 300;
+  font-size: clamp(2.5rem, 4.84vw, 3.875rem);
+  line-height: 1.04; letter-spacing: -0.01em;
+}
+
+.form { margin-top: 28px; display: flex; flex-direction: column; gap: 20px; }
+.campo { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+
+.campo input[type="text"] {
+  width: 100%; height: 54px; padding: 0 20px;
+  border-radius: var(--raio-campo); border: 1px solid var(--cor-borda-campo);
+  background: var(--cor-superficie); font-size: 18px; color: var(--cor-texto);
+}
+.campo input::placeholder { color: var(--cor-placeholder); opacity: 1; }
+.campo input[aria-invalid="true"] { border-color: var(--cor-erro); }
+
+.erro-form { font-size: 14px; font-weight: 500; color: var(--cor-erro); }
+
+/* status: radios nativos escondidos, rótulos em pílula */
+.segmentado { border: 0; min-width: 0; }
+.segmentado-grupo {
+  position: relative;
+  display: inline-flex; align-self: flex-start; gap: 2px;
+  padding: 4px; border-radius: var(--raio-pilula); background: var(--cor-segmento);
+}
+.segmentado-grupo input {
+  position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none;
+}
+.segmentado-grupo label {
+  padding: 11px 26px; border-radius: var(--raio-pilula);
+  font-size: 16px; font-weight: 500; line-height: 1.5;
+  letter-spacing: normal; text-transform: none;
+  color: var(--cor-texto-suave); cursor: pointer;
+}
+.segmentado-grupo input:checked + label {
+  background: var(--cor-superficie); color: var(--cor-texto); box-shadow: var(--sombra-segmento);
+}
+.segmentado-grupo input:focus-visible + label { outline: 3px solid var(--cor-foco); outline-offset: 2px; }
+
+.btn-salvar {
+  display: inline-flex; align-items: center; gap: 12px; align-self: flex-start;
+  height: 56px; padding: 0 32px; margin-top: 4px;
+  border: none; border-radius: var(--raio-pilula);
+  background: var(--cor-acento); color: var(--cor-sobre-acento);
+  font-size: 17px; font-weight: 600;
+}
+
+/* fila */
+.fila-bloco { flex: 1; min-width: 0; padding: 32px 32px 30px; }
+.fila-cabeca { display: flex; align-items: center; gap: 12px; color: var(--cor-acento); }
+.fila-cabeca h2 {
+  font-family: var(--font-titulo); font-weight: 500; font-size: 28px; color: var(--cor-texto);
+}
+.fila { margin-top: 22px; display: flex; flex-direction: column; gap: 12px; }
+.fila-item { border: 1px solid var(--cor-borda-cartao); border-radius: var(--raio-item); background: transparent; }
+.fila-item.aberto { background: var(--cor-superficie-sel); }
+.fila-toggle {
+  display: flex; width: 100%; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 17px 22px; border: none; border-radius: var(--raio-item); background: transparent;
+  font-size: 18px; color: var(--cor-texto); text-align: left;
+}
+.fila-nome { overflow-wrap: anywhere; }
+.fila-toggle .icone { color: var(--cor-texto-suave); }
+.fila-painel { padding: 0 22px 20px; }
+.proximo-passo { margin-top: 6px; font-size: 17px; line-height: 1.45; overflow-wrap: anywhere; }
+.btn-retomar { margin-top: 16px; }
+.fila-vazia { margin-top: 22px; font-size: 17px; color: var(--cor-texto-suave); }
+
+/* ---------- ROTEIRO ---------- */
+.tela-roteiro {
+  position: fixed; inset: 0; z-index: 100; overflow: auto;
+  min-height: 100dvh; background: var(--cor-fundo-roteiro);
+}
+.roteiro-conteudo {
+  width: min(1040px, calc(100% - 48px)); margin: 0 auto;
+  padding: clamp(32px, 15.5vh, 124px) 0 40px;
+}
+.roteiro-lista li {
+  display: grid; grid-template-columns: 72px minmax(0, 360px) 1fr 56px; align-items: center;
+  padding: 14px 0; border-bottom: 1px solid var(--cor-borda-linha);
+}
+.roteiro-lista li:last-child { border-bottom: 0; }
+.roteiro-num {
+  display: flex; align-items: center; justify-content: center;
+  width: 50px; height: 50px; border: 1.5px solid var(--cor-borda-numero); border-radius: 50%;
+  font-size: 22px; font-weight: 500; color: var(--cor-acento-escuro);
+}
+.roteiro-palavra {
+  font-family: var(--font-titulo); font-weight: 300;
+  font-size: clamp(2.5rem, 6.1vw, 4.875rem); line-height: 1.05;
+}
+.roteiro-frase {
+  font-size: clamp(1.125rem, 2.03vw, 1.625rem); line-height: 1.35;
+  color: var(--cor-texto-corpo); padding-right: 64px;
+}
+.roteiro-icone { color: var(--cor-icone-roteiro); }
+.roteiro-acoes { margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.btn-fechar {
+  display: flex; align-items: center; justify-content: center;
+  width: 72px; height: 72px; padding: 0; border-radius: 50%;
+  background: var(--cor-superficie); border: 1.5px solid var(--cor-acento); color: var(--cor-acento);
+}
+.btn-fechar:focus-visible { outline-offset: 3px; }
+
+/* ---------- EMERGÊNCIA ---------- */
+.secundaria-corpo { padding: 72px 56px 40px; }
+.secundaria-corpo h1 {
+  font-family: var(--font-titulo); font-weight: 300;
+  font-size: clamp(2.25rem, 4.7vw, 3.75rem); line-height: 1.05; letter-spacing: -0.01em;
+}
+.lead { margin-top: 14px; font-size: 20px; color: var(--cor-texto-corpo); }
+.tecnicas { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.tecnica { padding: 32px; }
+.tecnica-topo { display: flex; justify-content: space-between; align-items: flex-start; color: var(--cor-acento); }
+.selo-tempo {
+  padding: 6px 14px; border-radius: var(--raio-pilula);
+  background: var(--cor-selo); color: var(--cor-acento-escuro); font-size: 13px; font-weight: 500;
+}
+.tecnica h2 { margin-top: 24px; font-family: var(--font-titulo); font-weight: 500; font-size: 30px; }
+.tecnica p { margin-top: 12px; font-size: 18px; line-height: 1.5; color: var(--cor-texto-corpo); }
+
+/* ---------- HISTÓRICO (a tela não existe no protótipo; mesmo vocabulário visual) ---------- */
+.exportar { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
+.historico-lista { margin-top: 32px; max-width: 760px; }
+.grupo-dia + .grupo-dia { margin-top: 32px; }
+.grupo-dia h2 {
+  margin-bottom: 12px;
+  font-size: 12px; letter-spacing: 0.1em; font-weight: 500;
+  color: var(--cor-texto-suave); font-variant-numeric: tabular-nums;
+}
+.historico { display: flex; flex-direction: column; gap: 12px; }
+.historico li {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; align-items: center;
+  padding: 17px 22px;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda-cartao); border-radius: var(--raio-item);
+}
+.hist-nome { font-size: 18px; color: var(--cor-texto); overflow-wrap: anywhere; }
+.selo {
+  padding: 6px 14px; border-radius: var(--raio-pilula);
+  font-size: 13px; font-weight: 500; white-space: nowrap;
+}
+.selo-aberta { background: var(--cor-segmento); color: var(--cor-texto-suave); }
+.selo-concluida { background: var(--cor-selo); color: var(--cor-acento-escuro); }
+.hist-texto, .hist-trajetoria { grid-column: 1 / -1; overflow-wrap: anywhere; }
+.hist-texto { font-size: 17px; line-height: 1.45; color: var(--cor-texto-corpo); }
+.hist-trajetoria { font-size: 14px; color: var(--cor-texto-suave); }
+.historico-vazio { font-size: 17px; color: var(--cor-texto-suave); }
+
+/* ---------- telas estreitas ---------- */
+@media (max-width: 56rem) {
+  .inicio-corpo { flex-direction: column; gap: 32px; padding: 32px 24px 32px; }
+  .inicio-esquerda { flex: none; width: 100%; }
+  .fila-bloco { flex: none; width: 100%; padding: 24px 20px; }
+  .rodape { padding: 20px 24px; }
+  .secundaria-corpo { padding: 40px 24px 32px; }
+  .tecnicas { grid-template-columns: 1fr; gap: 20px; }
+  .roteiro-lista li { grid-template-columns: 56px minmax(0, 1fr); row-gap: 4px; }
+  .roteiro-num { grid-row: span 2; width: 44px; height: 44px; font-size: 18px; }
+  .roteiro-frase { padding-right: 0; }
+  .roteiro-icone { display: none; }
+}

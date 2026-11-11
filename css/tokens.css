@@ -1,0 +1,71 @@
+/* Tokens do Estaciona, extraídos do protótipo aprovado (Estaciona.html). Fontes locais, sem rede. */
+
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/fraunces-latin-wght-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/fraunces-latin-wght-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/inter-latin-wght-normal.woff2") format("woff2");
+}
+
+:root {
+  color-scheme: light; /* o protótipo é só claro */
+
+  --font-texto: Inter, system-ui, sans-serif;
+  --font-titulo: Fraunces, Georgia, serif;
+
+  /* superfícies */
+  --cor-fundo: #faf6ee;
+  --cor-fundo-roteiro: #f6f2e6;
+  --cor-rodape: #f6f2e6;
+  --cor-superficie: #fffdf8;
+  --cor-superficie-sel: #f4f1e4;
+  --cor-segmento: #efe8da;
+  --cor-selo: #edf1e4;
+
+  /* bordas */
+  --cor-borda-campo: #e0d6c3;
+  --cor-borda-cartao: #eadfcc;
+  --cor-borda-linha: #ddd5c0;
+  --cor-borda-rodape: #e8e0cf;
+  --cor-borda-numero: #8fa58b;
+
+  /* texto */
+  --cor-texto: #2f3a33;
+  --cor-texto-corpo: #3f4a41;
+  --cor-texto-suave: #5f695f;
+  --cor-placeholder: #667066;
+
+  /* acento (verde-sálvia) */
+  --cor-acento: #4f6b52;
+  --cor-acento-escuro: #3f5a43;
+  --cor-sobre-acento: #faf6ee;
+  --cor-ponto: #f6dcc4;
+  --cor-icone-roteiro: #7e9272;
+  --cor-foco: #6e8f73;
+
+  /* erro de validação: terracota do protótipo (#9a6b4f) escurecido para contraste >= 4,5:1 */
+  --cor-erro: #8a5a3f;
+
+  --sombra-cartao: 0 24px 56px rgba(79, 107, 82, 0.07);
+  --sombra-segmento: 0 2px 8px rgba(47, 58, 51, 0.12);
+
+  --raio-cartao: 28px;
+  --raio-item: 22px;
+  --raio-campo: 18px;
+  --raio-pilula: 999px;
+}

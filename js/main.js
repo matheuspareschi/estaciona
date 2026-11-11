@@ -6,6 +6,7 @@ import { sortear } from "./prompts.js";
 import { iniciarHome } from "./views/home.js";
 import { iniciarRitual } from "./views/ritual.js";
 import { iniciarHistorico } from "./views/history.js";
+import { iniciarComoUsar } from "./views/como-usar.js";
 
 const estado = { dados: storage.carregar(), hoje: hoje() };
 
@@ -52,6 +53,7 @@ storage.gravarUltimaPergunta(pergunta);
 
 const ritual = iniciarRitual({ ir });
 const historico = iniciarHistorico({ estado });
+iniciarComoUsar();
 const home = iniciarHome({ estado, persistir, aoSalvar: () => ritual.abrir(), pergunta });
 ir("inicio");
 

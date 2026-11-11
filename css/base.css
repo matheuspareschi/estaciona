@@ -221,6 +221,23 @@ h1:focus { outline: none; } /* foco programático no título ao trocar de tela *
 .tecnica h2 { margin-top: 24px; font-family: var(--font-titulo); font-weight: 500; font-size: 30px; }
 .tecnica p { margin-top: 12px; font-size: 18px; line-height: 1.5; color: var(--cor-texto-corpo); }
 
+/* ---------- COMO USAR (mesmos cartões da Emergência) ---------- */
+.bloco-instalar { margin-top: 48px; }
+.bloco-instalar:not([hidden]) + .passos { margin-top: 28px; }
+.passos { gap: 56px; }
+.passos > li { position: relative; }
+.passo-seta {
+  position: absolute; top: 50%; right: -42px; margin-top: -14px;
+  color: var(--cor-acento);
+}
+.tecnicas-duas { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 28px; }
+.tecla {
+  display: inline-block; padding: 1px 10px;
+  border: 1.5px solid var(--cor-borda-numero); border-radius: 10px;
+  background: var(--cor-superficie); color: var(--cor-acento-escuro);
+  font: inherit; font-size: 0.9em; font-weight: 600; line-height: 1.4;
+}
+
 /* ---------- HISTÓRICO (a tela não existe no protótipo; mesmo vocabulário visual) ---------- */
 .exportar { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
 .historico-lista { margin-top: 32px; max-width: 760px; }
@@ -257,6 +274,9 @@ h1:focus { outline: none; } /* foco programático no título ao trocar de tela *
   .rodape { padding: 20px 24px; }
   .secundaria-corpo { padding: 40px 24px 32px; }
   .tecnicas { grid-template-columns: 1fr; gap: 20px; }
+  .passos { gap: 44px; }
+  .tecnicas-duas { grid-template-columns: 1fr; gap: 20px; margin-top: 20px; }
+  .passo-seta { top: auto; right: auto; bottom: -36px; left: 50%; margin: 0 0 0 -14px; transform: rotate(90deg); }
   .roteiro-lista li { grid-template-columns: 56px minmax(0, 1fr); row-gap: 4px; }
   .roteiro-num { grid-row: span 2; width: 44px; height: 44px; font-size: 18px; }
   .roteiro-frase { padding-right: 0; }
